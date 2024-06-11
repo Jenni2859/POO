@@ -42,13 +42,17 @@
             this.txtEdadAnimal = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
+            this.CajaImprimir = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Raza = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Edad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CajaImprimir)).BeginInit();
             this.SuspendLayout();
             // 
             // btnPOO
@@ -114,9 +118,10 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btnEliminar);
             this.panel2.Controls.Add(this.label5);
+            this.panel2.Controls.Add(this.btnAgregar);
             this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.btnEstablecer);
             this.panel2.Controls.Add(this.btnImprimir);
@@ -130,7 +135,7 @@
             // 
             // btnEstablecer
             // 
-            this.btnEstablecer.Location = new System.Drawing.Point(91, 286);
+            this.btnEstablecer.Location = new System.Drawing.Point(91, 266);
             this.btnEstablecer.Margin = new System.Windows.Forms.Padding(6);
             this.btnEstablecer.Name = "btnEstablecer";
             this.btnEstablecer.Size = new System.Drawing.Size(347, 41);
@@ -141,7 +146,7 @@
             // 
             // btnImprimir
             // 
-            this.btnImprimir.Location = new System.Drawing.Point(91, 352);
+            this.btnImprimir.Location = new System.Drawing.Point(91, 316);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(347, 35);
             this.btnImprimir.TabIndex = 4;
@@ -152,29 +157,38 @@
             // txtRaza
             // 
             this.txtRaza.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txtRaza.ForeColor = System.Drawing.Color.Silver;
             this.txtRaza.Location = new System.Drawing.Point(91, 156);
             this.txtRaza.Multiline = true;
             this.txtRaza.Name = "txtRaza";
             this.txtRaza.Size = new System.Drawing.Size(347, 40);
             this.txtRaza.TabIndex = 1;
+            this.txtRaza.Text = "Raza";
+            this.txtRaza.Click += new System.EventHandler(this.txtRaza_Click);
             // 
             // txtIDAnimal
             // 
             this.txtIDAnimal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txtIDAnimal.ForeColor = System.Drawing.Color.Silver;
             this.txtIDAnimal.Location = new System.Drawing.Point(91, 93);
             this.txtIDAnimal.Multiline = true;
             this.txtIDAnimal.Name = "txtIDAnimal";
             this.txtIDAnimal.Size = new System.Drawing.Size(347, 40);
             this.txtIDAnimal.TabIndex = 3;
+            this.txtIDAnimal.Text = "ID";
+            this.txtIDAnimal.Click += new System.EventHandler(this.txtIDAnimal_Click);
             // 
             // txtEdadAnimal
             // 
             this.txtEdadAnimal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txtEdadAnimal.ForeColor = System.Drawing.Color.Silver;
             this.txtEdadAnimal.Location = new System.Drawing.Point(91, 217);
             this.txtEdadAnimal.Multiline = true;
             this.txtEdadAnimal.Name = "txtEdadAnimal";
             this.txtEdadAnimal.Size = new System.Drawing.Size(347, 40);
             this.txtEdadAnimal.TabIndex = 2;
+            this.txtEdadAnimal.Text = "Edad";
+            this.txtEdadAnimal.Click += new System.EventHandler(this.txtEdadAnimal_Click);
             // 
             // label1
             // 
@@ -193,16 +207,6 @@
             this.label2.Size = new System.Drawing.Size(128, 25);
             this.label2.TabIndex = 6;
             this.label2.Text = "Clase Animal";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label3.Location = new System.Drawing.Point(91, 73);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(21, 17);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "ID";
             // 
             // label4
             // 
@@ -227,7 +231,7 @@
             // btnAgregar
             // 
             this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnAgregar.Location = new System.Drawing.Point(785, 452);
+            this.btnAgregar.Location = new System.Drawing.Point(17, 389);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(157, 42);
             this.btnAgregar.TabIndex = 7;
@@ -238,7 +242,7 @@
             // btnEliminar
             // 
             this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnEliminar.Location = new System.Drawing.Point(785, 500);
+            this.btnEliminar.Location = new System.Drawing.Point(346, 393);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(157, 35);
             this.btnEliminar.TabIndex = 8;
@@ -246,14 +250,42 @@
             this.btnEliminar.UseVisualStyleBackColor = true;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
+            // CajaImprimir
+            // 
+            this.CajaImprimir.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.CajaImprimir.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.CajaImprimir.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.CajaImprimir.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID,
+            this.Raza,
+            this.Edad});
+            this.CajaImprimir.Location = new System.Drawing.Point(587, 467);
+            this.CajaImprimir.Name = "CajaImprimir";
+            this.CajaImprimir.Size = new System.Drawing.Size(522, 150);
+            this.CajaImprimir.TabIndex = 7;
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            // 
+            // Raza
+            // 
+            this.Raza.HeaderText = "Raza";
+            this.Raza.Name = "Raza";
+            // 
+            // Edad
+            // 
+            this.Edad.HeaderText = "Edad";
+            this.Edad.Name = "Edad";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(1161, 559);
-            this.Controls.Add(this.btnEliminar);
-            this.Controls.Add(this.btnAgregar);
+            this.ClientSize = new System.Drawing.Size(1161, 796);
+            this.Controls.Add(this.CajaImprimir);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
@@ -264,6 +296,7 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CajaImprimir)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -284,11 +317,14 @@
         private System.Windows.Forms.TextBox txtEdadAnimal;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Button btnEliminar;
+        private System.Windows.Forms.DataGridView CajaImprimir;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Raza;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Edad;
     }
 }
 

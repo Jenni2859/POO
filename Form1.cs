@@ -52,13 +52,28 @@ namespace POO
             animal.id = txtIDAnimal.Text;
             animal.edadAnimal = Convert.ToDouble(txtEdadAnimal.Text);
 
+            txtIDAnimal.Text = "";
+            txtRaza.Text = "";
+            txtEdadAnimal.Text = "";
+
 
         }
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"Id: {animal.id} Raza: {animal.raza} Edad: {animal.edadAnimal}");
+            txtIDAnimal.Text = "";
+            txtRaza.Text = "";
+            txtEdadAnimal.Text = "";
 
+            CajaImprimir.Rows.Clear();
+
+            //MessageBox.Show($"Id: {animal.id} Raza: {animal.raza} Edad: {animal.edadAnimal}");
+            //CajaImprimir.Rows.Add(animal.id, animal.raza, animal.edadAnimal);
+
+            for(int i = 0; i < animalitos.Count; i++)
+            {
+                CajaImprimir.Rows.Add(animalitos[i].id, animalitos[i].raza, animalitos[i].edadAnimal);
+            }
 
         }
 
@@ -81,13 +96,38 @@ namespace POO
                 Console.WriteLine(animal.ObtenerInfoAnimal());
             }
             Console.WriteLine("--------------------- Fin de impresión animalitos ---------------------");
+            btnImprimir_Click(sender, e);
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtIDAnimal.Text))
             {
-                MessageBox.Show("Debes especifiar un id de animal");
+                if (CajaImprimir.SelectedRows.Count > 0)
+                {
+                    string borrar = (string)CajaImprimir.SelectedCells[0].Value;
+                    DialogResult opcionUsuario = MessageBox.Show($"Estas seguro de eliminar a {CajaImprimir.SelectedCells[0].Value}?",
+                    "Advertencia", MessageBoxButtons.YesNo);
+                    switch (opcionUsuario)
+                    {
+                        case DialogResult.Yes:
+
+                            DataGridViewRow filaseleccionada = CajaImprimir.SelectedRows[0];
+                            var idPerroEliminar = filaseleccionada.Cells["id"].Value.ToString();
+
+                            animalitos.RemoveAll(animalRegistrado => animalRegistrado.id == idPerroEliminar);
+                            break;
+                        case DialogResult.No:
+                            break;
+
+
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Debes especifiar un id de animal o seleccionar una fila");
+                }
+
             }
             else
             {
@@ -105,6 +145,39 @@ namespace POO
                 txtRaza.Text = "";
                 txtEdadAnimal.Text = "";
 
+            }
+            btnImprimir_Click(sender, e);
+
+
+        }
+
+        private void txtIDAnimal_Click(object sender, EventArgs e)
+        {
+            
+
+            if (txtIDAnimal.Text == "ID")
+            {
+                txtIDAnimal.Clear();
+
+                txtIDAnimal.ForeColor = Color.Black;
+            }
+        }
+
+        private void txtRaza_Click(object sender, EventArgs e)
+        {
+            if (txtRaza.Text == "Raza")
+            {
+                txtRaza.Clear();
+                txtRaza.ForeColor = Color.Black;    
+            }
+        }
+
+        private void txtEdadAnimal_Click(object sender, EventArgs e)
+        {
+            if (txtEdadAnimal.Text == "Edad")
+            {
+                txtEdadAnimal.Clear();
+                txtEdadAnimal.ForeColor= Color.Black;
             }
         }
     }
