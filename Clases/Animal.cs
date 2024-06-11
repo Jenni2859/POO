@@ -36,5 +36,11 @@ namespace POO.Clases
             this.raza = raza;
             this.edadAnimal = edadAnimal;
         }
+
+        public string ObtenerInfoAnimal()
+        {
+            return $"Id: {id} Raza: {raza} Edad: {edadAnimal}"; 
+
+        }
     }
 }

@@ -13,6 +13,10 @@ namespace POO
 {
     public partial class Form1 : Form
     {
+        Animal animal = new Animal();
+
+        List<Animal> animalitos = new List<Animal>();
+
         public Form1()
         {
             InitializeComponent();
@@ -21,8 +25,8 @@ namespace POO
         private void btnPOO_Click(object sender, EventArgs e)
         {
 
-            Persona persona2 = new Persona("12345","Jenifer",19); 
-            
+            Persona persona2 = new Persona("12345", "Jenifer", 19);
+
             txtNombre.Text = persona2.GetNombre();
             txtCedula.Text = persona2.GetCedula();
             txtEdad.Text = persona2.GetEdad().ToString();
@@ -43,12 +47,65 @@ namespace POO
 
         private void btnEstablecer_Click(object sender, EventArgs e)
         {
-            Animal animal = new Animal();
+
             animal.raza = txtRaza.Text;
             animal.id = txtIDAnimal.Text;
             animal.edadAnimal = Convert.ToDouble(txtEdadAnimal.Text);
 
-            Console.WriteLine($"{animal.id} {animal.raza} {animal.edadAnimal}"); 
+
+        }
+
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show($"Id: {animal.id} Raza: {animal.raza} Edad: {animal.edadAnimal}");
+
+
+        }
+
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            // creamo la instancia de la clase con los valore que tienen los txt
+            Animal animalitoGuardar = new Animal(
+                txtIDAnimal.Text, txtRaza.Text, Convert.ToDouble(txtEdadAnimal.Text));
+
+            animalitos.Add(animalitoGuardar);
+            txtIDAnimal.Text = "";
+            txtRaza.Text = "";
+            txtEdadAnimal.Text = "";
+
+            Console.WriteLine("----------------------- Imprimiendo animalitos -----------------------");
+
+            foreach (Animal animal in animalitos)
+            {
+                Console.WriteLine(animal.ObtenerInfoAnimal());
+            }
+            Console.WriteLine("--------------------- Fin de impresión animalitos ---------------------");
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtIDAnimal.Text))
+            {
+                MessageBox.Show("Debes especifiar un id de animal");
+            }
+            else
+            {
+                animalitos.RemoveAll(animalRegistrado => animalRegistrado.id == txtIDAnimal.Text);
+                Console.WriteLine("-------------------------------- Animalito eliminado---------------------------------------");
+
+                foreach (Animal animal in animalitos)
+                {
+
+                    Console.WriteLine(animal.ObtenerInfoAnimal());
+                }
+                Console.WriteLine("--------------------------------Fin de impresión de animalitos---------------------------------------");
+
+                txtIDAnimal.Text = "";
+                txtRaza.Text = "";
+                txtEdadAnimal.Text = "";
+
+            }
         }
     }
 }
